@@ -6,6 +6,8 @@ include config.mk
 SRC = utmp.c setproctitle.c
 OBJ = ${SRC:.c=.o}
 
+CFLAGS+=-DTMUX_SUPPORT
+
 all: options utmp 
 
 options:

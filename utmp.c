@@ -2,6 +2,11 @@
 #define _POSIX_C_SOURCE	200112L
 #define _BSD_SOURCE /* getusershell() */
 
+#ifdef TMUX_SUPPORT
+#	define TMUX_SESSION "tmux display-message -p '#S'"
+#	define TMUX_TERM_PREFIX "screen"
+#endif /* TMUX_SUPPORT */
+
 #include <errno.h>
 #include <ctype.h>
 #include <stdarg.h>
@@ -124,6 +129,67 @@ delutmp(void)
 	endutxent();
 }
 
+#ifdef TMUX_SUPPORT
+char
+*get_tmux_session(void)
+{
+	char *b, *c;
+	FILE *tmux;
+
+	if (getenv("TMUX") == NULL ) /* TMUX variable not preset */
+		return NULL;
+
+	b = getenv("TERM");
+
+	if (b == NULL) /* TERM is not preset */
+		return NULL;
+	
+	if (strncmp((char *)TMUX_TERM_PREFIX, /* TERM != screen* */
+				b, strlen((char *)TMUX_TERM_PREFIX)) != 0)
+		return NULL;
+	
+	if((tmux = popen(TMUX_SESSION, "r")) /* popen() failed */
+			== NULL) {
+		die("%s: popen() failed: %s\n", me, strerror(errno));
+		return NULL;
+	}
+
+	b = malloc(UT_HOSTSIZE-5);
+	
+	if (b == NULL) /* cannot allocate memory?! 8() */
+		die("%s: could not create buffer: %s", me, strerror(errno));
+
+	fgets(b, UT_HOSTSIZE-5, tmux); /* read tmux output */
+
+	if(pclose(tmux) != 0) { /* tmux exited abnormaly */
+		free(b);
+		fprintf(stderr, "%s: pclose() failed: %s\n", me, strerror(errno));
+		return NULL;
+	}
+
+	c = strchr(b,'\n'); /* find first newline if any */
+	
+	if(c != NULL) {
+		*c=0;
+	} else { /* Something's wrong. EOF, abnormal or truncated line */
+		free(b);
+		return NULL;
+	}
+	
+	c = malloc(UT_HOSTSIZE); /* new buffer for sprintf */
+	
+	if (c == NULL) { /* cannot allocate memory?! 8() */
+		free(b);
+		die("%s: could not create buffer: %s", me, strerror(errno));
+	}
+	
+	snprintf(c, UT_HOSTSIZE, "tmux:%s", b);
+	
+	free(b);
+	return c;
+}
+#endif /* TMUX_SUPPORT */
+
 int
 main(int argc, char *argv[])
 {
@@ -205,6 +271,11 @@ main(int argc, char *argv[])
 			strlen(pass->pw_name) + 1 > sizeof(utmp.ut_user)) {
 		die("%s: Process is running with an incorrect uid %d\n", me, uid);
 	}
+
+#ifdef TMUX_SUPPORT
+	if (from == NULL) /* no -f */
+		from = get_tmux_session();
+#endif /* TMUX_SUPPORT */
 
 	if (shell == NULL && cmd == NULL && !login) { /* we're not a shell nor login-shell and no -c */
 		addutmp(STDIN_FILENO, getppid(), from); /* add utmp-record */
