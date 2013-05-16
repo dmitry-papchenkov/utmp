@@ -1,0 +1,57 @@
+.TH UTMP 1 utmp\-VERSION
+.SH NAME
+utmp \- manage utmp entry for a session
+.SH SYNTAX
+.B utmp
+[\fB\-l\fR] [\fB\-c \fIcmd\fR] [\fB\-f \fIfrom\fR]
+.br
+.B \-utmp
+[\fIshell arguments\fR]
+.br
+.B \-u\fISHELL\fR
+[\fIshell arguments\fR]
+.br
+.B u\fISHELL\fR
+[\fIshell arguments\fR]
+.br
+.B utmp \-h
+.SH DESCRIPTION
+.B utmp
+adds an entry to utmp for a shell. Then called as
+.B utmp
+without arguments it adds utmp-record for parent shell and exit.
+Optional argument \fB\-f\fR sets \fIfrom\fR field in generated record.
+With \fB\-l\fR option program will add utmp-record and spawn new login shell,
+and with \fB\-c\fR option program will pass \fIcmd\fR to \fIshell -c\fR.
+It trusts the
+.I SHELL
+environment variable in theese cases and in case this one is not set or is set to 
+.B utmp
+itself, program gets the user defined shell from the
+.I /etc/passwd
+file.
+.br
+Then program called as
+.B -utmp
+it adds utmp-record and spawns login shell passing all arguments to it.
+And then called as
+.B u\fISHELL\fR,
+\fISHELL\fR will be spawned.
+.br
+.I SHELLs
+is checked against
+.I /etc/shells
+file by it's
+.I basename(3)\fR.
+Then spawning, program will fork and \fIwait(2)\fR for child process, cleaning up utmp-record after that.
+.SH AUTHORS
+Program is based on
+.B utmp
+utility from suckless.org originally written by Roberto E. Vargas Caballero
+.SH LICENSE
+See the LICENSE file for the terms of distribution.
+.SH BUGS
+utmp uses the posix interface defined in POSIX.1-2001. OpenBSD
+and others BSD system don't implement these standard functions, so
+this code could not be portable to them.
+
