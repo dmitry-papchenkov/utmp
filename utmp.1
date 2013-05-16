@@ -17,7 +17,9 @@ utmp \- manage utmp entry for a session
 .B utmp \-h
 .SH DESCRIPTION
 .B utmp
-adds an entry to utmp for a shell. Then called as
+adds an entry to utmp for a shell.
+.SS OPTIONS
+Then called as
 .B utmp
 without arguments it adds utmp-record for parent shell and exit.
 Optional argument \fB\-f\fR sets \fIfrom\fR field in generated record.
@@ -31,28 +33,44 @@ itself, program gets the user defined shell from the
 .I /etc/passwd
 file.
 .br
+.SS "USING AS SHELL"
 Then program called as
 .B -utmp
 it adds utmp-record and spawns login shell passing all arguments to it.
-And then called as
+.br
+Then called as
 .B u\fISHELL\fR,
-\fISHELL\fR will be spawned.
+\fISHELL\fR will be spawned with program's arguments.
 .br
 .I SHELLs
 is checked against
 .I /etc/shells
 file by it's
-.I basename(3)\fR.
+.B basename (3).
 Then spawning, program will fork and \fIwait(2)\fR for child process, cleaning up utmp-record after that.
+.SS TMUX SUPPORT
+Then used without \fI\-f\fR or as shell
+.B utmp
+will check \fITMUX\fR and \fITERM\fR environment variables and try to detect
+\fBtmux\fR(1) session. If
+.B utmp
+finds that session it will set \fIfrom\fR field to session name.
 .SH AUTHORS
 Program is based on
 .B utmp
 utility from suckless.org originally written by Roberto E. Vargas Caballero
-and heavily modified by Dmitry V. Papchenkov
+.br
+This version created by Dmitry V. Papchenkov
 .SH LICENSE
 See the LICENSE file for the terms of distribution.
 .SH BUGS
 utmp uses the posix interface defined in POSIX.1-2001. OpenBSD
 and others BSD system don't implement these standard functions, so
 this code could not be portable to them.
+.br
+.B tmux (1)
+sessions detected by environment may be detected incorrectly if \fITMUX\fR variable 
+present outside session for some reason.
+.SH "SEE ALSO"
+.BR tmux (1)
 
