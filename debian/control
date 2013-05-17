@@ -1,0 +1,17 @@
+Source: utmp
+Section: misc
+Priority: optional
+Maintainer: Dmitry V. Papchenkov <dmitry.papchenkoff@gmail.com>
+Build-Depends: debhelper (>= 8), libc6-dev
+Standards-Version: 3.9.1
+Homepage: http://www.suckless.org
+Vcs-Git: git://github.com/dmitry-papchenkov/utmp.git
+Vcs-Browser: https://github.com/dmitry-papchenkov/utmp.git
+
+Package: utmp
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Suggests: tmux
+Provides: utmp
+Description: simple utility to manage utmp-records for shell and/or terminal multiplexers
+ This package provides utmp utility to manage utmp-records for shell sessions

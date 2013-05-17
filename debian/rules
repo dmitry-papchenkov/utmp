@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+
+SHELL := sh -e
+
+D := $(CURDIR)/debian/utmp
+
+TOOLS = $(CURDIR)
+
+%:
+	dh ${@}
+
+override_dh_auto_clean:
+	dh_auto_clean
+	$(MAKE) clean
+
+override_dh_auto_build:
+	find . -name config.mk | xargs sed -i 's,-s ${LIBS},${LIBS},'
+	CFLAGS="$(CFLAGS)" $(MAKE) PREFIX=/usr
+
+override_dh_auto_install:
+	$(MAKE) DESTDIR=$(D) PREFIX=/usr GROUP=utmp install
+
+override_dh_fixperms:
+	dh_fixperms -Xusr/bin/utmp
+
