@@ -1,5 +1,5 @@
 # utmp version
-VERSION = 0.3
+VERSION = 0.3.1
 
 # PGP signature for Debian packaging
 # Only needed by package maintainers
