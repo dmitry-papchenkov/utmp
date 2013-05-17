@@ -1,1 +1,0 @@
-utmp: setgid-binary usr/bin/utmp 2755 root/utmp
