@@ -1,0 +1,21 @@
+#!/bin/sh -e
+# Installs uSHELL symlinks for utmp
+
+if [ "$1" != "configure" ]
+then
+	exit 0
+fi
+
+test -r /etc/shells || exit 0
+
+for shell in $(egrep -v '^#' /etc/shells)
+do
+	shell=u$(basename $shell)
+	update-alternatives --install "/usr/bin/$shell" "utmp-$shell" "/usr/bin/utmp" 50
+	if readlink /etc/alternatives/"utmp-$shell" | grep -qw utmp
+	then
+		update-alternatives --set "utmp-$shell" "/usr/bin/utmp"
+	fi
+done
+
+

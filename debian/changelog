@@ -1,3 +1,13 @@
+utmp (0.3.1-1) unstable; urgency=low
+
+  * Makefile
+    + deb-pkg and deb-src targets for maintaining package
+  * debian/source/format
+    + Now using correct source format
+  * Main version bumped to indicate build-structure changes
+
+ -- Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>  Fri, 17 May 2013 20:01:18 +0400
+
 utmp (0.3-6) unstable; urgency=low
 
   * Switched to correct versioning

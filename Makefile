@@ -30,11 +30,7 @@ clean:
 
 dist: clean
 	@echo creating dist tarball
-	@mkdir -p utmp-${VERSION}
-	@cp -R LICENSE Makefile config.mk utmp.1 ${SRC} utmp-${VERSION}
-	@tar -cf utmp-${VERSION}.tar utmp-${VERSION}
-	@gzip utmp-${VERSION}.tar
-	@rm -rf utmp-${VERSION}
+	$(CURDIR)/create-tarball.sh
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
@@ -54,4 +50,16 @@ uninstall:
 	@echo removing manual page from ${DESTDIR}${PREFIX}/man1
 	@rm -f ${DESTDIR}${MANPREFIX}/man1/utmp.1
 
-.PHONY: all options clean dist install uninstall
+deb-src: clean
+	@echo Creating debian source package...
+	@echo Creating .orig tarball...
+	$(CURDIR)/create-orig-tarball.sh
+	debuild -k$(SIGN) -S
+
+deb-pkg: clean
+	@echo Creating debian package...
+	@echo Creating .orig tarball...
+	$(CURDIR)/create-orig-tarball.sh
+	debuild -k$(SIGN) -b
+		
+.PHONY: all options clean dist install uninstall deb-src deb-pkg

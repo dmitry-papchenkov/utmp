@@ -1,0 +1,13 @@
+Package: utmp
+Version: 0.3-6
+Architecture: amd64
+Maintainer: Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>
+Installed-Size: 18
+Depends: libc6 (>= 2.10)
+Suggests: tmux
+Provides: utmp
+Section: misc
+Priority: optional
+Homepage: https://github.com/dmitry-papchenkov/utmp
+Description: simple utility to manage utmp-records for shell and/or terminal multiplexers
+ This package provides utmp utility to manage utmp-records for shell sessions

@@ -1,6 +1,10 @@
 # utmp version
 VERSION = 0.3
 
+# PGP signature for Debian packaging
+# Only needed by package maintainers
+SIGN=036CADA4
+
 # Customize below to fit your system.
 
 GROUP = utmp
