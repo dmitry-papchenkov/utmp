@@ -5,7 +5,8 @@ Maintainer: Dmitry V. Papchenkov <dmitry.papchenkoff@gmail.com>
 Build-Depends: debhelper (>= 8), libc6-dev (>= 2.4)
 Standards-Version: 3.9.1
 Vcs-Git: git://github.com/dmitry-papchenkov/utmp.git
-Vcs-Browser: https://github.com/dmitry-papchenkov/utmp.git
+Vcs-Browser: https://github.com/dmitry-papchenkov/utmp
+Homepage: https://github.com/dmitry-papchenkov/utmp
 
 Package: utmp
 Architecture: any

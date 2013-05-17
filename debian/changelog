@@ -1,7 +1,15 @@
+utmp (0.3ppdv4) unstable; urgency=low
+
+  * debian/control
+    + Added homepage-field
+    + Fixed VCS urls
+
+ -- Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>  Fri, 17 May 2013 17:41:27 +0400
+
 utmp (0.3ppdv3) unstable; urgency=low
 
   * debian/control
-    + Added libc6-version to mit dpkg-source requirements
+    + Added libc6-version to meet dpkg-source requirements
   * debian/copyright
     + Fixed license
 
