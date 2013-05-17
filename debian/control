@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Dmitry V. Papchenkov <dmitry.papchenkoff@gmail.com>
 Build-Depends: debhelper (>= 8), libc6-dev
 Standards-Version: 3.9.1
-Homepage: http://www.suckless.org
 Vcs-Git: git://github.com/dmitry-papchenkov/utmp.git
 Vcs-Browser: https://github.com/dmitry-papchenkov/utmp.git
 
