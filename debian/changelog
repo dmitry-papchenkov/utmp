@@ -1,3 +1,12 @@
+utmp (0.3ppdv2) unstable; urgency=low
+
+  * debian/postinst
+    + Added postinst script for update-alternatives
+  * debian/prerm
+    + Added prerm script for update-alternatives
+
+ -- Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>  Fri, 17 May 2013 16:31:55 +0400
+
 utmp (0.3ppdv1) unstable; urgency=low
 
   * Initial release
