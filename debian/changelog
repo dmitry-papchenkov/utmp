@@ -1,3 +1,17 @@
+utmp (0.3-1) unstable; urgency=low
+
+  * Switched to correct versioning
+  * debian/prerm
+    + Added debhelper token
+  * debian/postinst
+    + Added debhelper token
+  * debian/control
+    + Standards-version changed to recent
+  * Added ./create-orig-tarball.sh script to make _orig without debian/
+    directory
+
+ -- Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>  Fri, 17 May 2013 18:56:09 +0400
+
 utmp (0.3ppdv5) unstable; urgency=low
 
   * debian/source/local-options
