@@ -1,3 +1,12 @@
+utmp (0.3ppdv3) unstable; urgency=low
+
+  * debian/control
+    + Added libc6-version to mit dpkg-source requirements
+  * debian/copyright
+    + Fixed license
+
+ -- Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>  Fri, 17 May 2013 17:34:31 +0400
+
 utmp (0.3ppdv2) unstable; urgency=low
 
   * debian/postinst
