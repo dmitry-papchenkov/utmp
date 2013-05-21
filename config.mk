@@ -18,7 +18,7 @@ INCS = -I. -I/usr/include
 LIBS = -L/usr/lib -lc
 
 # flags
-CPPFLAGS = -DVERSION=\"${VERSION}\"
+CPPFLAGS += -DVERSION=\"${VERSION}\"
 CFLAGS += -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS} -DTMUX_SUPPORT
 LDFLAGS += ${LIBS}
 

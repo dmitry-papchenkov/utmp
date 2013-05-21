@@ -1,3 +1,11 @@
+utmp (0.3.1-2) unstable; urgency=low
+
+  * Added ITP-bug
+    + Closes: #709229
+  * Added support for debhelper CFLAGS
+
+ -- Dmitry Papchenkov <dmitry.papchenkoff@gmail.com>  Tue, 21 May 2013 22:30:50 +0400
+
 utmp (0.3.1-1) unstable; urgency=low
 
   * Makefile
